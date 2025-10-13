@@ -601,6 +601,12 @@ before packages are loaded."
 
   (global-visual-line-mode 1)
 
+  "Configuration function for user code.
+  This function is called at the very end of Spacemacs initialization."
+  ;; Formatear automáticamente al guardar con LSP o Prettier
+  (add-hook 'before-save-hook 'lsp-format-buffer t t)
+  (add-hook 'before-save-hook 'lsp-organize-imports t t)
+
   )
 
 
