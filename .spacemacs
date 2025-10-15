@@ -48,9 +48,11 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-term-shell "/usr/bin/zsh"
+            shell-default-position 'bottom
+            shell-default-shell 'vterm)
      spell-checking
      syntax-checking
      version-control
@@ -630,9 +632,10 @@ This function is called at the very end of Spacemacs initialization."
                    company-phpactor company-web composer copilot copilot-chat
                    define-word devdocs diff-hl diminish dired-quick-sort
                    disable-mouse docker dockerfile-mode dotenv-mode drag-stuff
-                   drupal-mode dumb-jump edit-indirect elisp-def elisp-demos
-                   elisp-slime-nav emmet-mode emr eval-sexp-fu evil-anzu evil-args
-                   evil-cleverparens evil-collection evil-easymotion evil-escape
+                   drupal-mode dumb-jump eat edit-indirect elisp-def elisp-demos
+                   elisp-slime-nav emmet-mode emr esh-help eshell-prompt-extras
+                   eshell-z eval-sexp-fu evil-anzu evil-args evil-cleverparens
+                   evil-collection evil-easymotion evil-escape
                    evil-evilified-state evil-exchange evil-goggles
                    evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
                    evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
@@ -652,23 +655,24 @@ This function is called at the very end of Spacemacs initialization."
                    js2-mode js2-refactor json-mode json-navigator json-reformat
                    json-snatcher link-hint livid-mode lorem-ipsum lsp-mode
                    lsp-origami lsp-treemacs lsp-ui macrostep markdown-toc mcp
-                   multi-line multiple-cursors mwim nameless nodejs-repl npm-mode
-                   open-junk-file org-cliplink org-contrib org-download org-mime
-                   org-pomodoro org-present org-projectile org-rich-yank
-                   org-superstar orgit-forge origami overseer package-lint
-                   page-break-lines paradox password-generator pcre2el
-                   php-auto-yasnippets php-extras php-mode php-runtime phpactor
-                   phpunit polymode popwin pos-tip prettier-js pug-mode quickrun
-                   rainbow-delimiters request restart-emacs sass-mode scss-mode
-                   shell-maker simple-httpd skewer-mode slim-mode smeargle
-                   space-doc spaceline spacemacs-purpose-popwin
-                   spacemacs-whitespace-cleanup sql-indent string-edit-at-point
-                   string-inflection symbol-overlay symon tablist tagedit
-                   term-cursor toc-org treemacs-evil treemacs-icons-dired
-                   treemacs-magit treemacs-persp treemacs-projectile
-                   typescript-mode undo-fu undo-fu-session unfill vi-tilde-fringe
-                   volatile-highlights vundo web-beautify web-completion-data
-                   web-mode wgrep winum writeroom-mode ws-butler xcscope yasnippet
+                   multi-line multi-term multi-vterm multiple-cursors mwim
+                   nameless nodejs-repl npm-mode open-junk-file org-cliplink
+                   org-contrib org-download org-mime org-pomodoro org-present
+                   org-projectile org-rich-yank org-superstar orgit-forge origami
+                   overseer package-lint page-break-lines paradox
+                   password-generator pcre2el php-auto-yasnippets php-extras
+                   php-mode php-runtime phpactor phpunit polymode popwin pos-tip
+                   prettier-js pug-mode quickrun rainbow-delimiters request
+                   restart-emacs sass-mode scss-mode shell-maker shell-pop
+                   simple-httpd skewer-mode slim-mode smeargle space-doc spaceline
+                   spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+                   sql-indent string-edit-at-point string-inflection
+                   symbol-overlay symon tablist tagedit term-cursor terminal-here
+                   toc-org treemacs-evil treemacs-icons-dired treemacs-magit
+                   treemacs-persp treemacs-projectile typescript-mode undo-fu
+                   undo-fu-session unfill vi-tilde-fringe volatile-highlights
+                   vterm vundo web-beautify web-completion-data web-mode wgrep
+                   winum writeroom-mode ws-butler xcscope yasnippet
                    yasnippet-snippets)))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
