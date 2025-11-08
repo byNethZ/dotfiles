@@ -39,8 +39,9 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
+     doom-themes
      auto-completion
-     github-copilot
+     (github-copilot :variables github-copilot-enable-commit-messages t)
      better-defaults
      emacs-lisp
      git
@@ -223,8 +224,9 @@ It should only modify the values of Spacemacs settings."
    ;; package can be defined with `:package', or a theme can be defined with
    ;; `:location' to download the theme package, refer the themes section in
    ;; DOCUMENTATION.org for the full theme specifications.
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   ;; dotspacemacs-themes '(spacemacs-dark
+   ;; spacemacs-light)
+   dotspacemacs-themes '(doom-dark+)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -606,7 +608,7 @@ before packages are loaded."
   "Configuration function for user code.
   This function is called at the very end of Spacemacs initialization."
   ;; Formatear automáticamente al guardar con LSP o Prettier
-  (add-hook 'before-save-hook 'lsp-format-buffer t t)
+  ;; (add-hook 'before-save-hook 'lsp-format-buffer t t)
   (add-hook 'before-save-hook 'lsp-organize-imports t t)
 
   )
