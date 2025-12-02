@@ -38,6 +38,7 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     ;; exec-path-from-shell
      helm
      doom-themes
      auto-completion
@@ -582,6 +583,9 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; (when (memq window-system '(mac ns x))
+  ;; (exec-path-from-shell-initialize))
+
   (setq org-todo-keywords
         '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)" "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)" "TICKLE(T!)" "|" "CANCELLED(c!)" "DONE(F!)")))
 
@@ -604,13 +608,19 @@ before packages are loaded."
     )
 
   (global-visual-line-mode 1)
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 2)
 
   "Configuration function for user code.
   This function is called at the very end of Spacemacs initialization."
   ;; Formatear automáticamente al guardar con LSP o Prettier
   ;; (add-hook 'before-save-hook 'lsp-format-buffer t t)
   (add-hook 'before-save-hook 'lsp-organize-imports t t)
+  ;; Desactiva flyspell en modos de programación para evitar lag
+  (add-hook 'prog-mode-hook 'flyspell-mode-off)
 
+  ;; (Opcional) Asegúrate de que esté activo en modos de texto
+  (add-hook 'text-mode-hook 'flyspell-mode-on)
   )
 
 
@@ -675,7 +685,13 @@ This function is called at the very end of Spacemacs initialization."
                    undo-fu-session unfill vi-tilde-fringe volatile-highlights
                    vterm vundo web-beautify web-completion-data web-mode wgrep
                    winum writeroom-mode ws-butler xcscope yasnippet
-                   yasnippet-snippets)))
+                   yasnippet-snippets))
+   '(safe-local-variable-values
+     '((js2-basic-offset . 2) (web-mode-indent-style . 2)
+       (web-mode-block-padding . 2) (web-mode-script-padding . 2)
+       (web-mode-style-padding . 2) (typescript-backend . tide)
+       (typescript-backend . lsp) (javascript-backend . tide)
+       (javascript-backend . tern) (javascript-backend . lsp))))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
