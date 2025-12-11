@@ -1,6 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Verifica si el directorio /opt/nvim/ existe
+if [ -d "/opt/nvim/" ]; then
+    # Si existe, añade /opt/nvim/ a la variable PATH
+    export PATH="$PATH:/opt/nvim/"
+    # Opcional: Mensaje para confirmar que se ha añadido
+fi
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
