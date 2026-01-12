@@ -40,7 +40,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; exec-path-from-shell
      helm
-     doom-themes
+     ;; doom-themes
      auto-completion
      (github-copilot :variables github-copilot-enable-commit-messages t)
      better-defaults
@@ -50,6 +50,7 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      org
+     pdf
      (shell :variables
             shell-default-height 30
             shell-default-term-shell "/usr/bin/zsh"
@@ -67,6 +68,7 @@ This function should only modify configuration layer settings."
      prettier
      sql
      docker
+     eww
      (treemacs :variables treemacs-display-icons t)
      )
 
@@ -637,7 +639,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(package-selected-packages
-     '(ac-php-core ace-link aggressive-indent aio all-the-icons auto-compile
+     '(ac-php-core ace-link aggressive-indent aio all-the-icons auctex auto-compile
                    auto-highlight-symbol auto-yasnippet avy-jump-helm-line
                    browse-at-remote centered-cursor-mode clean-aindent-mode
                    code-review column-enforce-mode company company-php
@@ -672,20 +674,20 @@ This function is called at the very end of Spacemacs initialization."
                    org-contrib org-download org-mime org-pomodoro org-present
                    org-projectile org-rich-yank org-superstar orgit-forge origami
                    overseer package-lint page-break-lines paradox
-                   password-generator pcre2el php-auto-yasnippets php-extras
-                   php-mode php-runtime phpactor phpunit polymode popwin pos-tip
-                   prettier-js pug-mode quickrun rainbow-delimiters request
-                   restart-emacs sass-mode scss-mode shell-maker shell-pop
-                   simple-httpd skewer-mode slim-mode smeargle space-doc spaceline
-                   spacemacs-purpose-popwin spacemacs-whitespace-cleanup
-                   sql-indent string-edit-at-point string-inflection
-                   symbol-overlay symon tablist tagedit term-cursor terminal-here
-                   toc-org treemacs-evil treemacs-icons-dired treemacs-magit
-                   treemacs-persp treemacs-projectile typescript-mode undo-fu
-                   undo-fu-session unfill vi-tilde-fringe volatile-highlights
-                   vterm vundo web-beautify web-completion-data web-mode wgrep
-                   winum writeroom-mode ws-butler xcscope yasnippet
-                   yasnippet-snippets))
+                   password-generator pcre2el pdf-tools pdf-view-restore
+                   php-auto-yasnippets php-extras php-mode php-runtime phpactor
+                   phpunit polymode popwin pos-tip prettier-js pug-mode quickrun
+                   rainbow-delimiters request restart-emacs sass-mode scss-mode
+                   shell-maker shell-pop simple-httpd skewer-mode slim-mode
+                   smeargle space-doc spaceline spacemacs-purpose-popwin
+                   spacemacs-whitespace-cleanup sql-indent string-edit-at-point
+                   string-inflection symbol-overlay symon tablist tagedit
+                   term-cursor terminal-here texfrag toc-org treemacs-evil
+                   treemacs-icons-dired treemacs-magit treemacs-persp
+                   treemacs-projectile typescript-mode undo-fu undo-fu-session
+                   unfill vi-tilde-fringe volatile-highlights vterm vundo
+                   web-beautify web-completion-data web-mode wgrep winum
+                   writeroom-mode ws-butler xcscope yasnippet yasnippet-snippets))
    '(safe-local-variable-values
      '((js2-basic-offset . 2) (web-mode-indent-style . 2)
        (web-mode-block-padding . 2) (web-mode-script-padding . 2)
