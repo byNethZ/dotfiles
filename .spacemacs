@@ -230,7 +230,7 @@ It should only modify the values of Spacemacs settings."
    ;; DOCUMENTATION.org for the full theme specifications.
    ;; dotspacemacs-themes '(spacemacs-dark
    ;; spacemacs-light)
-   dotspacemacs-themes '(doom-dark+)
+   dotspacemacs-themes '(doom-one)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -626,6 +626,14 @@ before packages are loaded."
 
   ;; (Opcional) Asegúrate de que esté activo en modos de texto
   (add-hook 'text-mode-hook 'flyspell-mode-on)
+
+
+  ;; Hace que el cursor se mantenga centrado en lugar de ir al borde
+  (setq scroll-conservatively 0)
+  ;; Define un margen de líneas antes de que empiece a scrollear
+  ;; Un valor alto asegura más contexto superior/inferior
+  (setq scroll-margin 10)
+
   )
 
 

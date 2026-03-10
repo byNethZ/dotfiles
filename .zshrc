@@ -136,3 +136,13 @@ alias dcd='docker compose down'
 if [[ -f ~/.zshrc.local ]]; then
     source ~/.zshrc.local
 fi
+
+# bun completions
+[ -s "/home/yanethz/.bun/_bun" ] && source "/home/yanethz/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opencode
+export PATH=/home/yanethz/.opencode/bin:$PATH
