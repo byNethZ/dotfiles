@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(toml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -693,12 +693,13 @@ This function is called at the very end of Spacemacs initialization."
                    smeargle space-doc spaceline spacemacs-purpose-popwin
                    spacemacs-whitespace-cleanup sql-indent string-edit-at-point
                    string-inflection symbol-overlay symon tablist tagedit
-                   term-cursor terminal-here texfrag toc-org treemacs-evil
-                   treemacs-icons-dired treemacs-magit treemacs-persp
-                   treemacs-projectile typescript-mode undo-fu undo-fu-session
-                   unfill vi-tilde-fringe volatile-highlights vterm vundo
-                   web-beautify web-completion-data web-mode wgrep winum
-                   writeroom-mode ws-butler xcscope yasnippet yasnippet-snippets))
+                   term-cursor terminal-here texfrag toc-org toml-mode
+                   treemacs-evil treemacs-icons-dired treemacs-magit
+                   treemacs-persp treemacs-projectile typescript-mode undo-fu
+                   undo-fu-session unfill vi-tilde-fringe volatile-highlights
+                   vterm vundo web-beautify web-completion-data web-mode wgrep
+                   winum writeroom-mode ws-butler xcscope yasnippet
+                   yasnippet-snippets))
    '(safe-local-variable-values
      '((js2-basic-offset . 2) (web-mode-indent-style . 2)
        (web-mode-block-padding . 2) (web-mode-script-padding . 2)
