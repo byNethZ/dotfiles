@@ -146,3 +146,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/yanethz/.opencode/bin:$PATH
+export PATH=$HOME/.config/emacs/bin:$PATH

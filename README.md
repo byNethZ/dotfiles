@@ -1,162 +1,142 @@
-# Gestión de Dotfiles (Zsh y Spacemacs)
+# Gestion de Dotfiles
 
-Este repositorio gestiona mis configuraciones personales (dotfiles) para Zsh y Spacemacs, permitiéndome sincronizarlas entre múltiples equipos.
+Este repositorio centraliza mi configuracion de terminal y editores:
 
-La estrategia principal se basa en:
+- `setup_zsh.sh`: instala y configura Zsh + Oh My Zsh + plugins.
+- `setup_lazyvim.sh`: instala dependencias de LazyVim y enlaza `nvim/`.
+- `setup_spacemacs.sh`: instala Emacs + Spacemacs y enlaza `.spacemacs`.
+- `setup_doom_emacs.sh`: instala dependencias de Doom, clona Doom y enlaza `doom/`.
 
-1.  **Un repositorio Git central** (este) que almacena los archivos de configuración (ej. `.zshrc`, `.spacemacs`).
-2.  **Enlaces Simbólicos (symlinks)** en cada máquina, que apuntan desde la ubicación esperada (ej. `~/.spacemacs`) al archivo correspondiente dentro de este repositorio.
-3.  **Un script de instalación** (`setup_zsh.sh`) para automatizar la instalación de dependencias como Oh My Zsh, plugins y otras herramientas (`bat`).
+La estrategia es simple:
 
------
+1. Guardar configuraciones en este repo.
+2. Crear symlinks en `HOME` hacia los archivos de este repo.
+3. Ejecutar scripts para automatizar instalacion y puesta a punto.
 
-### 1\. Configuración Inicial (Computadora Principal)
+## Estructura esperada
 
-Estos pasos se realizan **una sola vez** para crear el repositorio.
+El repo asume esta ruta local:
 
-1.  **Crea un nuevo repositorio para tus "dotfiles"**:
+```bash
+$HOME/personal-projects/dotfiles
+```
 
-      * Puedes crearlo en GitHub o GitLab. Llamémoslo `dotfiles`.
-      * En tu computadora, crea una carpeta para el repositorio:
-        ```bash
-        mkdir ~/dotfiles
-        cd ~/dotfiles
-        git init
-        # Conecta con tu repositorio remoto (ej. GitHub)
-        # git remote add origin [URL-DE-TU-REPOSITORIO]
-        git remote add origin [git@github.com:byNethZ/dotfiles.git]
-        ```
+Si lo clonas en otra ruta, ajusta `DOTFILES_DIR` en los scripts.
 
-2.  **Mueve tus archivos de configuración al repositorio**:
+## Instalacion en una maquina nueva
 
-      * Mueve tu `.zshrc` y tu `.spacemacs` de tu `home` a la nueva carpeta.
-        ```bash
-        mv ~/.zshrc ~/dotfiles/
-        mv ~/.spacemacs ~/dotfiles/ 
-        ```
+### 1) Clonar el repositorio
 
-3.  **Crea los enlaces simbólicos (symlinks)**:
+```bash
+mkdir -p "$HOME/personal-projects"
+git clone git@github.com:byNethZ/dotfiles.git "$HOME/personal-projects/dotfiles"
+cd "$HOME/personal-projects/dotfiles"
+```
 
-      * Vuelve a crear los "accesos directos" en tu `home` para que apunten a los archivos dentro del repositorio.
-        ```bash
-        ln -s ~/dotfiles/.zshrc ~/.zshrc
-        ln -s ~/dotfiles/.zsh_history ~/.zsh_history 
-        ln -s ~/dotfiles/.spacemacs ~/.spacemacs 
-        ```
+### 2) Configurar Zsh
 
-4.  **(Recomendado) Abstrae la configuración local de Zsh**:
+Que hace `setup_zsh.sh`:
 
-      * Para evitar conflictos con rutas específicas de cada máquina (como WebStorm), modifica tu `~/dotfiles/.zshrc` y añade al final:
-        ```bash
-        # Cargar configuración local específica de la máquina (si existe)
-        if [[ -f ~/.zshrc.local ]]; then
-          source ~/.zshrc.local
-        fi
-        ```
-      * Crea un archivo `~/.zshrc.local` (en tu `home`, *no* en el repo) con las rutas de esa máquina:
-        ```bash
-        # Ejemplo de ~/.zshrc.local
-        export PATH="/home/usuario-pc/WebStorm-XXXX/bin:$PATH"
-        ```
+- Instala dependencias base (`git`, `bat`, etc.).
+- Instala Oh My Zsh.
+- Configura symlinks de `~/.zshrc` y `~/.zsh_history`.
+- Instala plugins (`zsh-autosuggestions`, `zsh-syntax-highlighting`, `you-should-use`, `zsh-bat`).
 
-5.  **Añade el script de instalación y `.gitignore`**:
+Ejecucion:
 
-      * Guarda el script `setup_zsh.sh` (del paso anterior) dentro de tu carpeta `~/dotfiles/`.
-      * Crea un archivo `.gitignore` en `~/dotfiles/` para ignorar los archivos locales:
-        ```
-        # .gitignore
-        .zshrc.local
-        ```
+```bash
+chmod +x setup_zsh.sh
+./setup_zsh.sh
+```
 
-6.  **Sube tu configuración al repositorio**:
+### 3) Configurar LazyVim (Neovim)
 
-      * Desde la carpeta `~/dotfiles/`, añade, confirma y sube tus archivos.
-        ```bash
-        git add .zshrc .spacemacs setup_zsh.sh .gitignore
-        git commit -m "Configuración inicial de Zsh y Spacemacs"
-        git push origin main
-        ```
+Que hace `setup_lazyvim.sh`:
 
------
+- Instala `ripgrep`, `fd-find`, `bat`, `neovim`.
+- Crea symlink `fd` si solo existe `fdfind`.
+- Crea symlink `bat` si solo existe `batcat`.
+- Respalda `~/.config/nvim` si existe y no es symlink.
+- Enlaza `~/.config/nvim -> $DOTFILES_DIR/nvim`.
 
-### 2\. Instalación en un Equipo Nuevo (Laptop)
+Ejecucion:
 
-Cuando llegues a una máquina nueva, sigue estos pasos para replicar tu entorno.
+```bash
+chmod +x setup_lazyvim.sh
+./setup_lazyvim.sh
+```
 
-#### 2.1. Configuración de Zsh (Oh My Zsh y Plugins)
+Despues abre `nvim` para que LazyVim termine de instalar plugins.
 
-1.  **Instala dependencias básicas**:
+### 4) Configurar Spacemacs
 
-    ```bash
-    # Necesitarás git y curl (y build-essential para algunas cosas)
-    sudo apt update
-    sudo apt install -y git curl 
-    ```
+Que hace `setup_spacemacs.sh`:
 
-2.  **Clona tu repositorio de configuración**:
+- Instala `emacs` (si no existe).
+- Clona Spacemacs en `~/.emacs.d` (si no existe).
+- Respalda `~/.spacemacs` si existe y no es symlink.
+- Enlaza `~/.spacemacs -> $DOTFILES_DIR/.spacemacs`.
 
-      * Clona el repositorio que creaste en el paso anterior.
-        ```bash
-        git clone [git@github.com:byNethZ/dotfiles.git] ~/dotfiles
-        ```
+Ejecucion:
 
-3.  **Ejecuta el Script de Instalación**:
+```bash
+chmod +x setup_spacemacs.sh
+./setup_spacemacs.sh
+```
 
-      * Navega a la carpeta, da permisos de ejecución al script y córrelo. Este script se encargará de:
-          * Instalar `bat` (si es necesario).
-          * Instalar Oh My Zsh.
-          * Clonar todos los plugins de Zsh (`zsh-autosuggestions`, `zsh-syntax-highlighting`, etc.).
-          * Crear el enlace simbólico para `.zshrc`.
-          ```
-        ln -s ~/dotfiles/.zshrc ~/.zshrc
-        ln -s ~/dotfiles/.zsh_history ~/.zsh_history 
-          ```
-    <!-- end list -->
+Despues abre `emacs` para completar la instalacion inicial.
 
-    ```bash
-    cd ~/dotfiles
-    chmod +x setup_zsh.sh
-    ./setup_zsh.sh
-    ```
+### 5) Configurar Doom Emacs
 
-4.  **(Opcional) Configuración Local**:
+Que hace `setup_doom_emacs.sh`:
 
-      * Si esta máquina tiene rutas específicas (como otra versión de WebStorm), crea el archivo `~/.zshrc.local` correspondiente.
+- Instala dependencias para Doom y herramientas de desarrollo.
+- Clona Doom Emacs en `~/.config/emacs` (si no existe).
+- Ejecuta `doom install` en primera instalacion.
+- Enlaza archivos de Doom desde `doom_emacs/` del repo a `~/.config/doom/`.
+- Ejecuta `doom sync`.
+- Agrega `~/.config/emacs/bin` al `PATH` en `~/.zshrc` si hace falta.
 
-5.  **Reinicia la terminal** (o ejecuta `zsh`) para cargar el nuevo entorno.
+Ejecucion:
 
-#### 2.2. Configuración de Spacemacs
+```bash
+chmod +x setup_doom_emacs.sh
+./setup_doom_emacs.sh
+```
 
-1.  **Instala Spacemacs (el "motor")**:
+Verificacion recomendada:
 
-      * Esto implica clonar el repositorio oficial en `~/.emacs.d`.
-        ```bash
-        git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-        ```
+```bash
+doom doctor
+```
 
-2.  **Crea el enlace simbólico**:
+## Nota importante: Spacemacs vs Doom
 
-      * (Asegúrate de borrar cualquier `~/.spacemacs` que Emacs haya creado automáticamente).
-      * Crea el symlink apuntando al archivo que ya clonaste con tu repo de `dotfiles`.
-        ```bash
-        # Si existe, bórralo: rm ~/.spacemacs
-        ln -s ~/dotfiles/.spacemacs ~/.spacemacs
-        ```
+No es recomendable usar Spacemacs y Doom Emacs a la vez en la misma instancia de Emacs sin separar perfiles, porque ambos pueden entrar en conflicto de configuracion.
 
-3.  **Abre Emacs y sé paciente**:
+Recomendacion:
 
-      * Al abrir Emacs, leerá tu archivo `.spacemacs` personalizado, verá todas las capas y comenzará a descargar e instalar todos los paquetes necesarios. **Este proceso puede tardar varios minutos**.
+- Usa **Spacemacs** (`setup_spacemacs.sh`) o
+- Usa **Doom Emacs** (`setup_doom_emacs.sh`)
 
------
+si quieres mantener un setup estable por maquina.
 
-### 3\. Flujo de Trabajo para Mantener Todo Sincronizado
+## Flujo de trabajo diario
 
-Ahora, tu flujo de trabajo para actualizar cualquier configuración es muy sencillo:
+Cuando cambies configuraciones:
 
-  * **¿Hiciste un cambio en tu `.zshrc` o `.spacemacs` en la laptop?**
-    1.  Ve a `~/dotfiles/`.
-    2.  Haz `git add .`, `git commit -m "Añadido alias X a zsh"`, y `git push`.
-  * **¿Quieres aplicar esos cambios en tu computadora principal?**
-    1.  Ve a `~/dotfiles/`.
-    2.  Haz `git pull`.
-    3.  Reinicia Emacs (si cambiaste `.spacemacs`) o abre una nueva terminal (si cambiaste `.zshrc`).
+```bash
+cd "$HOME/personal-projects/dotfiles"
+git add .
+git commit -m "actualiza configuracion"
+git push
+```
+
+En otra maquina:
+
+```bash
+cd "$HOME/personal-projects/dotfiles"
+git pull
+```
+
+Luego reinicia la terminal o editor segun corresponda.
