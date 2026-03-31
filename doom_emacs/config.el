@@ -154,17 +154,25 @@
         :desc "Copilot Chat Help" "h" #'copilot-chat-help
         :desc "Copilot Chat Reset" "r" #'copilot-chat-reset))
 
-
-(add-hook 'git-commit-setup-hook 'copilot-chat-insert-commit-message)
+;; --- COOPERACIÓN CON GIT ---
+(after! copilot-chat
+  ;; Esto asegura que la función esté disponible antes de agregar el hook
+  (add-hook 'git-commit-setup-hook #'copilot-chat-insert-commit-message))
 
 ;; Set default source and target languages (optional)
 (setq google-translate-default-source-language "en")
 (setq google-translate-default-target-language "es")
 
-(use-package! gptel
-  :config
-  (setq! gptel-model 'gemini-1.5-flash) ;; O 'gemini-1.5-pro
+(after! gptel
+  (setq! gptel-model 'gemini-1.5-flash)
   (setq! gptel-backend
          (gptel-make-gemini "Gemini"
-                            :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U"
-                            :stream t)))
+           :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U"
+           :stream t)))
+
+(use-package! super-save
+  :config
+  (super-save-mode +1)
+  ;; Guarda el archivo tras 5 segundos de inactividad
+  (setq super-save-auto-save-when-idle t
+        super-save-idle-duration 5))
