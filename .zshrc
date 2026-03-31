@@ -147,3 +147,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH=/home/yanethz/.opencode/bin:$PATH
 export PATH=$HOME/.config/emacs/bin:$PATH
+
+# Created by `pipx` on 2026-03-31 17:05:19
+export PATH="$PATH:/home/yanethz/.local/bin"
+export PATH="$PATH:$HOME/go/bin"

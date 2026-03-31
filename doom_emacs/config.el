@@ -76,12 +76,12 @@
 ;; they are implemented.
 
 (setq treesit-language-source-alist
-   '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (css "https://github.com/tree-sitter/tree-sitter-css" "master" "src")
-     (html "https://github.com/tree-sitter/tree-sitter-html" "master" "src")
-     (yaml "https://github.com/tree-sitter/tree-sitter-yaml")))
+      '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (css "https://github.com/tree-sitter/tree-sitter-css" "master" "src")
+        (html "https://github.com/tree-sitter/tree-sitter-html" "master" "src")
+        (yaml "https://github.com/tree-sitter/tree-sitter-yaml")))
 
 ;; --- EDITOR Y COMPORTAMIENTO ---
 (setq-default 
@@ -109,8 +109,8 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
-            
-           
+
+
 (after! (evil copilot)
   ;; Define the custom function that either accepts the completion or does the default behavior
   (defun my/copilot-tab-or-default ()
@@ -134,7 +134,7 @@
 (after! org
   (setq org-todo-keywords
         '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)" "TODELEGATE(g!)" 
-                    "DELEGATED(D!)" "FOLLOWUP(f!)" "TICKLE(T!)" "|" "CANCELLED(c!)" "DONE(F!)")))
+           "DELEGATED(D!)" "FOLLOWUP(f!)" "TICKLE(T!)" "|" "CANCELLED(c!)" "DONE(F!)")))
 
   (setq org-todo-keyword-faces
         '(("TODO" . org-warning)
@@ -156,3 +156,15 @@
 
 
 (add-hook 'git-commit-setup-hook 'copilot-chat-insert-commit-message)
+
+;; Set default source and target languages (optional)
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "es")
+
+(use-package! gptel
+  :config
+  (setq! gptel-model 'gemini-1.5-flash) ;; O 'gemini-1.5-pro
+  (setq! gptel-backend
+         (gptel-make-gemini "Gemini"
+                            :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U"
+                            :stream t)))

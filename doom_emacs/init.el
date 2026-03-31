@@ -98,7 +98,8 @@
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       lookup              ; navigate your code and its documentation
+       ;;lookup              ; navigate your code and its documentation
+       (lookup +docsets +dictionary +offline)
        ;;llm               ; when I said you needed friends, I didn't mean...
        lsp
        ;;(lsp +eglot)      ; M-x vscode
