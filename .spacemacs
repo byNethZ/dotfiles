@@ -644,72 +644,72 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(package-selected-packages
-     '(ac-php-core ace-link aggressive-indent aio all-the-icons auctex auto-compile
-                   auto-highlight-symbol auto-yasnippet avy-jump-helm-line
-                   browse-at-remote centered-cursor-mode clean-aindent-mode
-                   code-review column-enforce-mode company company-php
-                   company-phpactor company-web composer copilot copilot-chat
-                   define-word devdocs diff-hl diminish dired-quick-sort
-                   disable-mouse docker dockerfile-mode dotenv-mode drag-stuff
-                   drupal-mode dumb-jump eat edit-indirect elisp-def elisp-demos
-                   elisp-slime-nav emmet-mode emr esh-help eshell-prompt-extras
-                   eshell-z eval-sexp-fu evil-anzu evil-args evil-cleverparens
-                   evil-collection evil-easymotion evil-escape
-                   evil-evilified-state evil-exchange evil-goggles
-                   evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
-                   evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
-                   evil-surround evil-textobj-line evil-tutor evil-unimpaired
-                   evil-visual-mark-mode evil-visualstar expand-region eyebrowse
-                   fancy-battery flycheck flycheck-elsa flycheck-package
-                   flycheck-pos-tip flyspell-correct flyspell-correct-helm geben
-                   gh-md git-link git-messenger git-modes git-timemachine
-                   gitignore-templates gnuplot golden-ratio google-translate
-                   haml-mode helm-ag helm-c-yasnippet helm-comint helm-company
-                   helm-css-scss helm-descbinds helm-git-grep helm-ls-git helm-lsp
-                   helm-make helm-mode-manager helm-org helm-org-rifle
-                   helm-projectile helm-purpose helm-swoop helm-themes helm-xref
-                   hide-comnt highlight-indentation highlight-numbers
-                   highlight-parentheses hl-todo holy-mode htmlize hungry-delete
-                   hybrid-mode impatient-mode indent-guide info+ inspector js-doc
-                   js2-mode js2-refactor json-mode json-navigator json-reformat
-                   json-snatcher link-hint livid-mode lorem-ipsum lsp-mode
-                   lsp-origami lsp-treemacs lsp-ui macrostep markdown-toc mcp
-                   multi-line multi-term multi-vterm multiple-cursors mwim
-                   nameless nodejs-repl npm-mode open-junk-file org-cliplink
-                   org-contrib org-download org-mime org-pomodoro org-present
-                   org-projectile org-rich-yank org-superstar orgit-forge origami
-                   overseer package-lint page-break-lines paradox
-                   password-generator pcre2el pdf-tools pdf-view-restore
-                   php-auto-yasnippets php-extras php-mode php-runtime phpactor
-                   phpunit polymode popwin pos-tip prettier-js pug-mode quickrun
-                   rainbow-delimiters request restart-emacs sass-mode scss-mode
-                   shell-maker shell-pop simple-httpd skewer-mode slim-mode
-                   smeargle space-doc spaceline spacemacs-purpose-popwin
-                   spacemacs-whitespace-cleanup sql-indent string-edit-at-point
-                   string-inflection symbol-overlay symon tablist tagedit
-                   term-cursor terminal-here texfrag toc-org toml-mode
-                   treemacs-evil treemacs-icons-dired treemacs-magit
-                   treemacs-persp treemacs-projectile typescript-mode undo-fu
-                   undo-fu-session unfill vi-tilde-fringe volatile-highlights
-                   vterm vundo web-beautify web-completion-data web-mode wgrep
-                   winum writeroom-mode ws-butler xcscope yasnippet
-                   yasnippet-snippets))
-   '(safe-local-variable-values
-     '((js2-basic-offset . 2) (web-mode-indent-style . 2)
-       (web-mode-block-padding . 2) (web-mode-script-padding . 2)
-       (web-mode-style-padding . 2) (typescript-backend . tide)
-       (typescript-backend . lsp) (javascript-backend . tide)
-       (javascript-backend . tern) (javascript-backend . lsp))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(ac-php-core ace-link aggressive-indent aio all-the-icons auctex auto-compile
+                 auto-highlight-symbol auto-yasnippet avy-jump-helm-line
+                 browse-at-remote centered-cursor-mode clean-aindent-mode
+                 code-review column-enforce-mode company company-php
+                 company-phpactor company-web composer copilot copilot-chat
+                 define-word devdocs diff-hl diminish dired-quick-sort
+                 disable-mouse docker dockerfile-mode dotenv-mode drag-stuff
+                 drupal-mode dumb-jump eat edit-indirect elisp-def elisp-demos
+                 elisp-slime-nav emmet-mode emr esh-help eshell-prompt-extras
+                 eshell-z eval-sexp-fu evil-anzu evil-args evil-cleverparens
+                 evil-collection evil-easymotion evil-escape
+                 evil-evilified-state evil-exchange evil-goggles
+                 evil-iedit-state evil-indent-plus evil-lion evil-lisp-state
+                 evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-org
+                 evil-surround evil-textobj-line evil-tutor evil-unimpaired
+                 evil-visual-mark-mode evil-visualstar expand-region eyebrowse
+                 fancy-battery flycheck flycheck-elsa flycheck-package
+                 flycheck-pos-tip flyspell-correct flyspell-correct-helm geben
+                 gh-md git-link git-messenger git-modes git-timemachine
+                 gitignore-templates gnuplot golden-ratio google-translate
+                 haml-mode helm-ag helm-c-yasnippet helm-comint helm-company
+                 helm-css-scss helm-descbinds helm-git-grep helm-ls-git helm-lsp
+                 helm-make helm-mode-manager helm-org helm-org-rifle
+                 helm-projectile helm-purpose helm-swoop helm-themes helm-xref
+                 hide-comnt highlight-indentation highlight-numbers
+                 highlight-parentheses hl-todo holy-mode htmlize hungry-delete
+                 hybrid-mode impatient-mode indent-guide info+ inspector js-doc
+                 js2-mode js2-refactor json-mode json-navigator json-reformat
+                 json-snatcher link-hint livid-mode lorem-ipsum lsp-mode
+                 lsp-origami lsp-treemacs lsp-ui macrostep markdown-toc mcp
+                 multi-line multi-term multi-vterm multiple-cursors mwim
+                 nameless nodejs-repl npm-mode open-junk-file org-cliplink
+                 org-contrib org-download org-mime org-pomodoro org-present
+                 org-projectile org-rich-yank org-superstar orgit-forge origami
+                 overseer package-lint page-break-lines paradox
+                 password-generator pcre2el pdf-tools pdf-view-restore
+                 php-auto-yasnippets php-extras php-mode php-runtime phpactor
+                 phpunit polymode popwin pos-tip prettier-js pug-mode quickrun
+                 rainbow-delimiters request restart-emacs sass-mode scss-mode
+                 shell-maker shell-pop simple-httpd skewer-mode slim-mode
+                 smeargle space-doc spaceline spacemacs-purpose-popwin
+                 spacemacs-whitespace-cleanup sql-indent string-edit-at-point
+                 string-inflection symbol-overlay symon tablist tagedit
+                 term-cursor terminal-here texfrag toc-org toml-mode
+                 treemacs-evil treemacs-icons-dired treemacs-magit
+                 treemacs-persp treemacs-projectile typescript-mode undo-fu
+                 undo-fu-session unfill vi-tilde-fringe volatile-highlights
+                 vterm vundo web-beautify web-completion-data web-mode wgrep
+                 winum writeroom-mode ws-butler xcscope yasnippet
+                 yasnippet-snippets))
+ '(safe-local-variable-values
+   '((js2-basic-offset . 4) (js2-basic-offset . 2) (web-mode-indent-style . 2)
+     (web-mode-block-padding . 2) (web-mode-script-padding . 2)
+     (web-mode-style-padding . 2) (typescript-backend . tide)
+     (typescript-backend . lsp) (javascript-backend . tide)
+     (javascript-backend . tern) (javascript-backend . lsp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
