@@ -155,9 +155,10 @@
         :desc "Copilot Chat Reset" "r" #'copilot-chat-reset))
 
 ;; --- COOPERACIÓN CON GIT ---
-(after! copilot-chat
-  ;; Esto asegura que la función esté disponible antes de agregar el hook
-  (add-hook 'git-commit-setup-hook #'copilot-chat-insert-commit-message))
+(after! (copilot-chat magit) ; Asegúrate de que magit también esté cargado si usas git-commit
+  (add-hook 'git-commit-setup-hook (lambda ()
+                                     (require 'copilot-chat)
+                                     (copilot-chat-insert-commit-message))))
 
 ;; Set default source and target languages (optional)
 (setq google-translate-default-source-language "en")
@@ -167,7 +168,8 @@
   (setq! gptel-model 'gemini-1.5-flash)
   (setq! gptel-backend
          (gptel-make-gemini "Gemini"
-           :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U"
+           ;; :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U" ; Token inhabiitado por filtración.
+           :key ""
            :stream t)))
 
 (use-package! super-save
@@ -176,3 +178,6 @@
   ;; Guarda el archivo tras 5 segundos de inactividad
   (setq super-save-auto-save-when-idle t
         super-save-idle-duration 5))
+
+(after! treemacs
+  (map! :leader "0" #'treemacs-select-window))
