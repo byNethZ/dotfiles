@@ -143,23 +143,6 @@
           ("DELEGATED" . "pink")
           ("NEXT" . "#008080"))))
 
-(use-package! copilot-chat
-  :after (copilot)
-  :config
-  (setq copilot-chat-frontend 'markdown-mode) ;; Recommended for better formatting
-  ;; Add some basic keybindings
-  (map! :leader
-        :prefix "c"
-        :desc "Copilot Chat" "c" #'copilot-chat-display
-        :desc "Copilot Chat Help" "h" #'copilot-chat-help
-        :desc "Copilot Chat Reset" "r" #'copilot-chat-reset))
-
-;; --- COOPERACIÓN CON GIT ---
-(after! (copilot-chat magit) ; Asegúrate de que magit también esté cargado si usas git-commit
-  (add-hook 'git-commit-setup-hook (lambda ()
-                                     (require 'copilot-chat)
-                                     (copilot-chat-insert-commit-message))))
-
 ;; Set default source and target languages (optional)
 (setq google-translate-default-source-language "en")
 (setq google-translate-default-target-language "es")
@@ -169,7 +152,7 @@
   (setq! gptel-backend
          (gptel-make-gemini "Gemini"
            ;; :key "AIzaSyCZBBLNTqrZvY0mBDoK4kfRZ9cbVRZc-_U" ; Token inhabiitado por filtración.
-           :key ""
+           :key #'gptel-api-key-from-auth-source ; Busca en ~/.authinfo
            :stream t)))
 
 (use-package! super-save
