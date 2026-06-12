@@ -163,4 +163,6 @@
         super-save-idle-duration 5))
 
 (after! treemacs
-  (map! :leader "a" #'treemacs-select-window))
+  (map! :leader
+        :prefix "w"
+        :desc "Select Treemacs window" "a" #'treemacs-select-window))
