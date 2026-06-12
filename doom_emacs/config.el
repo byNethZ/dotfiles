@@ -163,4 +163,4 @@
         super-save-idle-duration 5))
 
 (after! treemacs
-  (map! :leader "0" #'treemacs-select-window))
+  (map! :leader "a" #'treemacs-select-window))
