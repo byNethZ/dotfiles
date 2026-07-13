@@ -79,6 +79,8 @@
       '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
         (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")
+        (rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
         (css "https://github.com/tree-sitter/tree-sitter-css" "master" "src")
         (html "https://github.com/tree-sitter/tree-sitter-html" "master" "src")
         (yaml "https://github.com/tree-sitter/tree-sitter-yaml")))
@@ -99,6 +101,40 @@
 
 ;; Configuración para Prisma 
 (add-hook 'prisma-mode-hook #'lsp)
+
+;; PHP/Laravel: mejorar indexado y navegación de símbolos con Intelephense
+(after! php-mode
+  (setq lsp-intelephense-stubs
+        ["apache" "bcmath" "bz2" "calendar" "com_dotnet" "Core" "ctype"
+         "curl" "date" "dba" "dom" "enchant" "exif" "FFI" "fileinfo"
+         "filter" "fpm" "ftp" "gd" "gettext" "gmp" "hash" "iconv"
+         "imap" "intl" "json" "ldap" "libxml" "mbstring" "meta"
+         "mysqli" "oci8" "odbc" "openssl" "pcntl" "pcre" "PDO"
+         "pgsql" "Phar" "posix" "pspell" "readline" "Reflection"
+         "session" "shmop" "SimpleXML" "snmp" "soap" "sockets"
+         "sodium" "SPL" "sqlite3" "standard" "superglobals" "sysvmsg"
+         "sysvsem" "sysvshm" "tidy" "tokenizer" "xml" "xmlreader"
+         "xmlrpc" "xmlwriter" "xsl" "Zend OPcache" "zip" "zlib"]
+        lsp-intelephense-files-max-size 5000000))
+
+;; Blade templates: forzar engine blade y habilitar LSP en .blade.php
+(after! web-mode
+  (add-to-list 'web-mode-engines-alist '("blade" . "\\.blade\\.")))
+
+(defun +blade-setup-lsp ()
+  "Enable PHP LSP in Blade files."
+  (when (and (eq major-mode 'web-mode)
+             (string-match-p "\\.blade\\.php\\'" (or buffer-file-name "")))
+    (setq-local lsp-language-id-configuration
+                (cons '(web-mode . "php") lsp-language-id-configuration))
+    (lsp!)))
+
+(add-hook 'web-mode-local-vars-hook #'+blade-setup-lsp)
+
+;; Rust: usar rust-analyzer y formatear al guardar
+(after! rustic
+  (setq rustic-format-on-save t
+        rustic-lsp-server 'rust-analyzer))
 
 ;; GitHub Copilot: Se activa en todos los modos de programación 
 ;; Nota: Asegúrate de tener instalado el paquete 'copilot' en packages.el
@@ -164,5 +200,5 @@
 
 (after! treemacs
   (map! :leader
-        :prefix "w"
-        :desc "Select Treemacs window" "a" #'treemacs-select-window))
+        (:prefix ("w" . "window")
+         :desc "Select Treemacs window" "a" #'treemacs-select-window)))
