@@ -118,6 +118,7 @@ ln -s "$DOTFILES_DIR/.spacemacs" "$HOME/.spacemacs"
 # --- 6. Instalar Plugins de Zsh ---
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 PLUGINS_DIR="$ZSH_CUSTOM/plugins"
+THEMES_DIR="$ZSH_CUSTOM/themes"
 
 echo "🔌 Instalando plugins de Zsh..."
 
@@ -126,5 +127,49 @@ echo "🔌 Instalando plugins de Zsh..."
 [ ! -d "$PLUGINS_DIR/you-should-use" ] && git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "$PLUGINS_DIR/you-should-use"
 [ ! -d "$PLUGINS_DIR/zsh-bat" ] && git clone https://github.com/fdellwing/zsh-bat.git "$PLUGINS_DIR/zsh-bat"
 
+# --- 7. Instalar Powerlevel10k ---
+if [ ! -d "$THEMES_DIR/powerlevel10k" ]; then
+  echo "🎨 Instalando tema Powerlevel10k..."
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$THEMES_DIR/powerlevel10k"
+else
+  echo "✅ Powerlevel10k ya está instalado."
+fi
+
+# --- 8. Instalar fuentes MesloLGS NF ---
+FONTS_DIR="$HOME/.local/share/fonts"
+mkdir -p "$FONTS_DIR"
+
+for font in \
+  MesloLGS\ NF\ Regular.ttf \
+  MesloLGS\ NF\ Bold.ttf \
+  MesloLGS\ NF\ Italic.ttf \
+  MesloLGS\ NF\ Bold\ Italic.ttf
+do
+  if [ ! -f "$FONTS_DIR/$font" ]; then
+    echo "📥 Descargando fuente '$font'..."
+    curl -fLo "$FONTS_DIR/$font" "https://github.com/romkatv/powerlevel10k-media/raw/master/$font"
+  else
+    echo "✅ Fuente '$font' ya existe."
+  fi
+done
+
+if command_exists fc-cache; then
+  fc-cache -f "$FONTS_DIR"
+fi
+
+# --- 9. Configurar symlink de .p10k.zsh ---
+if [ -f "$DOTFILES_DIR/.p10k.zsh" ]; then
+  if [ -f "$HOME/.p10k.zsh" ] && [ ! -L "$HOME/.p10k.zsh" ]; then
+    mv "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.bak"
+  fi
+
+  rm -f "$HOME/.p10k.zsh"
+  ln -s "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+else
+  echo "⚠️  No existe '$DOTFILES_DIR/.p10k.zsh'."
+  echo "💡 Ejecuta 'p10k configure' en una nueva terminal y guarda el resultado en el repo para reutilizarlo."
+fi
+
 echo "🎉 ¡Todo listo! Reinicia tu terminal."
+echo "💡 Selecciona la fuente 'MesloLGS NF' en tu terminal para ver correctamente los iconos."
 echo "💡 Abre 'nvim' para que LazyVim termine de instalar sus plugins."

@@ -2,7 +2,7 @@
 
 Este repositorio centraliza mi configuracion de terminal y editores:
 
-- `setup_zsh.sh`: instala y configura Zsh + Oh My Zsh + plugins.
+- `setup_zsh.sh`: instala y configura Zsh + Oh My Zsh + plugins + Powerlevel10k.
 - `setup_lazyvim.sh`: instala dependencias de LazyVim y enlaza `nvim/`.
 - `setup_spacemacs.sh`: instala Emacs + Spacemacs y enlaza `.spacemacs`.
 - `setup_doom_emacs.sh`: instala dependencias de Doom, clona Doom y enlaza `doom/`.
@@ -41,6 +41,9 @@ Que hace `setup_zsh.sh`:
 - Instala Oh My Zsh.
 - Configura symlinks de `~/.zshrc` y `~/.zsh_history`.
 - Instala plugins (`zsh-autosuggestions`, `zsh-syntax-highlighting`, `you-should-use`, `zsh-bat`).
+- Instala el tema `powerlevel10k`.
+- Descarga las fuentes `MesloLGS NF` en `~/.local/share/fonts`.
+- Enlaza `~/.p10k.zsh` si `DOTFILES_DIR/.p10k.zsh` ya existe.
 
 Ejecucion:
 
@@ -48,6 +51,14 @@ Ejecucion:
 chmod +x setup_zsh.sh
 ./setup_zsh.sh
 ```
+
+### Powerlevel10k
+
+Despues de reiniciar la terminal:
+
+1. Ejecuta `p10k configure` para generar tu configuracion inicial del prompt.
+2. Copia el archivo generado a `$HOME/personal-projects/dotfiles/.p10k.zsh` para versionarlo en este repo.
+3. Asegurate de seleccionar la fuente `MesloLGS NF` en tu emulador de terminal para que los iconos se vean correctamente.
 
 ### 3) Configurar LazyVim (Neovim)
 
