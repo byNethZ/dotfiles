@@ -159,3 +159,10 @@ export PATH="$PATH:$HOME/go/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Function to convert images to WebP enhanced format using ImageMagick
+towebp() {
+  local input="$1"
+  local output="${input:r}.webp"
+  magick "$input" -auto-orient -resize "1200x1200>" -strip -define webp:lossless=true -define webp:method=6 "$output"
+}
