@@ -31,6 +31,11 @@ for file in init.el config.el packages.el; do
   fi
 done
 
+# Enlazar snippets personalizados para yasnippet
+if [ -d "$DOTFILES_DIR/doom_emacs/snippets" ]; then
+  ln -sfn "$DOTFILES_DIR/doom_emacs/snippets" "$HOME/.config/doom/snippets"
+fi
+
 # 4. Sincronizar configuración
 echo "🔄 Sincronizando paquetes de Doom..."
 ~/.config/emacs/bin/doom sync

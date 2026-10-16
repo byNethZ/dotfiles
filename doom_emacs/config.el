@@ -202,3 +202,5 @@
   (map! :leader
         (:prefix ("w" . "window")
          :desc "Select Treemacs window" "a" #'treemacs-select-window)))
+(after! org
+  (setq org-agenda-files '("~/Documentos/todos/")))
