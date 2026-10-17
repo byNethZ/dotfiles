@@ -166,3 +166,19 @@ towebp() {
   local output="${input:r}.webp"
   magick "$input" -auto-orient -resize "1200x1200>" -strip -define webp:lossless=true -define webp:method=6 "$output"
 }
+
+# Initialize Conda only when requested.
+conda-on() {
+    if ! (( $+functions[conda] )); then
+        local conda_setup
+        conda_setup="$("$HOME/anaconda3/bin/conda" shell.zsh hook 2>/dev/null)" || {
+            echo "Error: Could not initialize Conda." >&2
+            return 1
+        }
+
+        eval "$conda_setup"
+        unset conda_setup
+    fi
+
+    conda activate base
+}
