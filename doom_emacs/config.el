@@ -168,16 +168,95 @@
 ;; --- ORGANIZACIÓN (ORG-MODE) ---
 ;; Tus estados de TODO y colores personalizados 
 (after! org
+  ;; Estados originales + GTD: WAITING, HOLD, SOMEDAY y PROJ (marca de proyecto).
   (setq org-todo-keywords
-        '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)" "TODELEGATE(g!)" 
-           "DELEGATED(D!)" "FOLLOWUP(f!)" "TICKLE(T!)" "|" "CANCELLED(c!)" "DONE(F!)")))
+        '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)"
+                    "WAITING(w@/!)" "BLOCKED(b!)" "HOLD(h@/!)"
+                    "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)"
+                    "TICKLE(T!)" "SOMEDAY(s!)" "PROJ(p!)"
+                    "|" "CANCELLED(c!)" "DONE(F!)")))
 
   (setq org-todo-keyword-faces
         '(("TODO" . org-warning)
           ("DOINGNOW" . "#E35DBF")
-          ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+          ("CANCELLED" . (:foreground "white" :background "#4d4d4d" :weight bold))
           ("DELEGATED" . "pink")
-          ("NEXT" . "#008080"))))
+          ("NEXT" . "#008080")
+          ("WAITING" . "#E5A50A")
+          ("HOLD" . "#9A9996")
+          ("SOMEDAY" . "#7B88C9")
+          ("PROJ" . (:foreground "#51AFEF" :weight bold)))))
+
+;; --- GTD (Getting Things Done) ---
+;; Todo vive bajo ~/org/: inbox.org, gtd.org, tickler.org y someday.org en la
+;; raíz; los archivos previos en ~/org/todos/. someday.org queda fuera de la
+;; agenda a propósito.
+;; (`org-directory' ya se define arriba como "~/org/".)
+
+(after! org
+  (setq org-agenda-files '("~/org/inbox.org"
+                           "~/org/gtd.org"
+                           "~/org/tickler.org"
+                           "~/org/todos/"))
+
+  ;; Captura (SPC X): el inbox no lleva estado; se decide al clarificar.
+  (setq org-capture-templates
+        '(("i" "Inbox item" entry
+           (file "~/org/inbox.org")
+           "* %?\n%U"
+           :empty-lines 1)
+          ("t" "Tickler (deferred/scheduled)" entry
+           (file "~/org/tickler.org")
+           "* TICKLE %?\nSCHEDULED: %^t\n%U"
+           :empty-lines 1)
+          ("s" "Someday/Maybe" entry
+           (file "~/org/someday.org")
+           "* SOMEDAY %?\n%U"
+           :empty-lines 1)))
+
+  ;; Refile (SPC m r r): inbox -> proyectos, someday o tickler.
+  (setq org-refile-targets
+        '(("~/org/gtd.org" :maxlevel . 3)
+          ("~/org/someday.org" :level . 1)
+          ("~/org/tickler.org" :maxlevel . 2))
+        org-refile-use-outline-path 'file
+        org-outline-path-complete-in-steps nil
+        org-refile-allow-creating-parent-nodes 'confirm)
+
+  ;; Proyectos atascados: PROJ sin ningún NEXT.
+  (setq org-stuck-projects '("/+PROJ" ("NEXT") nil ""))
+
+  ;; Dashboard: SPC o A g. Revisión semanal: SPC o A w.
+  (setq org-agenda-custom-commands
+        '(("g" "GTD Dashboard"
+           ((agenda "" ((org-agenda-span 'day)
+                        (org-deadline-warning-days 7)))
+            (todo "DOINGNOW"
+                  ((org-agenda-overriding-header "In progress")))
+            (todo "NEXT"
+                  ((org-agenda-overriding-header "Next actions")))
+            (tags-todo "TODO=\"WAITING\"|TODO=\"DELEGATED\"|TODO=\"BLOCKED\"|TODO=\"FOLLOWUP\""
+                       ((org-agenda-overriding-header "Waiting on / delegated")))
+            (tags-todo "TODO=\"TODO\""
+                       ((org-agenda-files '("~/org/gtd.org"))
+                        (org-agenda-overriding-header "Project tasks")
+                        (org-agenda-skip-function
+                         '(org-agenda-skip-entry-if 'scheduled 'deadline))))
+            (tags "LEVEL=1"
+                  ((org-agenda-files '("~/org/inbox.org"))
+                   (org-agenda-overriding-header "Unprocessed inbox")))))
+          ("w" "Weekly review"
+           ((tags "LEVEL=1"
+                  ((org-agenda-files '("~/org/inbox.org"))
+                   (org-agenda-overriding-header "Inbox (must be empty)")))
+            (stuck ""
+                   ((org-agenda-files '("~/org/gtd.org"))
+                    (org-agenda-overriding-header "Stuck projects")))
+            (todo "SOMEDAY"
+                  ((org-agenda-files '("~/org/someday.org"))
+                   (org-agenda-overriding-header "Someday/Maybe")))
+            (todo "HOLD"
+                  ((org-agenda-overriding-header "On hold"))))))))
 
 ;; Set default source and target languages (optional)
 (setq google-translate-default-source-language "en")
@@ -202,5 +281,3 @@
   (map! :leader
         (:prefix ("w" . "window")
          :desc "Select Treemacs window" "a" #'treemacs-select-window)))
-(after! org
-  (setq org-agenda-files '("~/Documentos/todos/")))
