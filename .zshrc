@@ -162,9 +162,25 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Function to convert images to WebP enhanced format using ImageMagick
 towebp() {
-  local input="$1"
-  local output="${input:r}.webp"
-  magick "$input" -auto-orient -resize "1200x1200>" -strip -define webp:lossless=true -define webp:method=6 "$output"
+  local target file
+  local extensions=("jpg" "jpeg" "png" "tiff" "bmp")
+
+  for target in "$@"; do
+    if [[ -d "$target" ]]; then
+      # Target is a directory: find matching raster image files
+      for ext in "${extensions[@]}"; do
+        for file in "$target"/*."$ext" "$target"/*."${ext:u}"; do
+          [[ -f "$file" ]] || continue
+          magick "$file" -auto-orient -resize "1200x1200>" -strip \
+            -define webp:lossless=true -define webp:method=6 "${file%.*}.webp"
+        done
+      done
+    elif [[ -f "$target" ]]; then
+      # Target is a single file or an expanded glob match
+      magick "$target" -auto-orient -resize "1200x1200>" -strip \
+        -define webp:lossless=true -define webp:method=6 "${target%.*}.webp"
+    fi
+  done
 }
 
 # Initialize Conda only when requested.
